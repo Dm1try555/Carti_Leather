@@ -1,0 +1,40 @@
+{% load static %}
+<header id="header">
+    <div class="inner">
+        <!-- Logo -->
+        <a href="{% url 'store:home' %}" class="logo">
+            <span class="symbol"><img src="{% static "images/logo.svg" %}" alt="" /></span>
+            <span class="title">Carti_Leather</span>
+        </a>
+        <!-- Nav -->
+        <nav>
+            <ul>
+                <li>
+                    <a href="#menu">Головна</a>
+                </li>
+            </ul>
+            <br>
+            <ul class="actions">
+                <li>
+                    <a href="{% url 'store:home' %}">
+                    <img src ="{% static "images/home.svg" %}" width="40" height="40" ></a>
+                    <br>
+                    <a href="{% url 'cart:cart' %}">
+                    <img src ="{% static "images/cart.jpg" %}" width="40" height="40" ></a>
+                    <br>
+                    <a href="{% url 'users:profile' %}">
+                    <img src ="{% static "images/profile.png" %}" width="40" height="40" ></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- Menu -->
+<nav id="menu">
+    <h2>Меню</h2>
+    <ul>
+        <li><a href="{% url 'store:tag_list' %}">Усі категорії</a></li>
+        <li><a href="{% url 'about:about_project' %}">Про наш магазин</a></li>
+        <li><a href="{% url 'about:about_me' %}">Контактні дані</a></li>
+    </ul>
+</nav>

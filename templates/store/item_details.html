@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<h2>{{ item.title }}</h2>
+<p>Товар належить до категорії:
+{% for tag in item.tags.all %}
+    <b><a href="{% url 'store:tag_details' tag.slug %}">{{ tag }}</a></b>
+    {% if not forloop.last %},{% endif %}
+{% endfor %}
+</p>
+{% if item.image %}
+    <p><span class="image left"><img src="{{ item.image.url }}" alt="" style="max-width: 200px; max-height: 200px;"/>
+{% else %}
+    <p><span class="image left"><img src="{% static "images/pic14.jpg" %}" alt="" />
+{% endif %}
+    <a href="{% url 'cart:add_to_cart' item.slug %}" class="button small" style="margin-top:10px;">
+        Додати до кошику</a>
+    </span>
+    {{ item.description }}{{ item.description }}
+</p>
+{% if item.old_price %}
+    <p>Стара ціна: <s>{{ item.old_price }} гривень</s>
+    Нова ціна: <b>{{ item.price }}</b> гривень </p>
+{% else %}
+    <p>Ціна: <b>{{ item.price }}</b> гривень </p>
+{% endif %}
+{% endblock %} 

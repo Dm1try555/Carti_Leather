@@ -1,0 +1,34 @@
+{% load static %}
+<footer id="footer">
+    <div class="inner">
+        <section>
+            <h2>Залишились питання? Зв'яжіться з нами!</h2>
+            <form method="post" action="{% url 'users:feedback_processing'%}">
+                {% csrf_token %}
+                <div class="fields">
+                    <div class="field half">
+                        <input type="text" name="feedback_name" id="feedback_name" placeholder="Ім'я" />
+                    </div>
+                    <div class="field half">
+                        <input type="email" name="feedback_email" id="feedback_email" placeholder="Електронна пошта" />
+                    </div>
+                    <div class="field">
+                        <textarea name="feedback_message" id="feedback_message" placeholder="Повідомлення" maxlength="500"></textarea>
+                        <small>Максимальна кількість символів 500</small>
+                    </div>
+                </div>
+                <ul class="actions">
+                    <li><input type="submit" value="Отправить" class="primary" /></li>
+                </ul>
+            </form>
+        </section>
+        <section>
+            <h2>Мої ресурси</h2>
+            <ul class="icons">
+                <li><a href="https://t.me/IDmitry_I" class="icon brands style2 fa-tg"><img src="{% static 'images/tg.svg' %}" alt=""><span class="label">Telegram</span></a></li>
+                <li><a href="https://www.instagram.com/carti_ua" class="icon solid style2 fa-inst"><img src="{% static 'images/inst.svg' %}" alt=""><span class="label">Instagram</span></a></li>
+                <li><a href="mailto:cartiualeather@gmail.com" class="icon solid style2 fa-email"><img src="{% static 'images/email.svg' %}" alt=""><span class="label">Email</span></a></li>
+            </ul>
+        </section>
+    </div>
+</footer>
