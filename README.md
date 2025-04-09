@@ -3,22 +3,22 @@
 
 1. Клонируйте репозиторий
 ```
-https://github.com/dagedarr/StoreProject.git
+clone <<git>>
 
 cd OnlineStore
 ```
-Если вы не используете Git, то вы можете просто скачать исходный код репозитория в ZIP-архиве и распаковать его на свой компьютер.
+
 
 2. Создайте виртуальное окружение и активируйте его
 ```
-python -m venv venv
+py -m venv venv
 source venv/bin/activate
 ```
 3. Установите зависимости
 ```
 pip install -r requirements.txt
 ```
-4. Создайте в корне проекта .env по обазу .env.example
+4. Создайте в корне проекта .env 
 
 5. Запустите миграции и загрузите данные в БД
 ```

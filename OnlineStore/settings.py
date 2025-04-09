@@ -75,13 +75,12 @@ WSGI_APPLICATION = 'OnlineStore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'database.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-        
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'carti_leather',
+        'USER': 'carti',
+        'PASSWORD': '113355',
+        'HOST': 'localhost',
+        'PORT': '5432',    
     }
 }
 
