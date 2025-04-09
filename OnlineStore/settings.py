@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'checkout.apps.CheckoutConfig',
     'users.apps.UsersConfig',
+    'about.apps.AboutConfig',
     'taggit',
 ]
 
@@ -103,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = 'Europe/Kyiv'
 
 USE_I18N = True
 
@@ -142,3 +143,8 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 # Telegram
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
