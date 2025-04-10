@@ -8,12 +8,12 @@ clone <<git>>
 cd OnlineStore
 ```
 
-
 2. Создайте виртуальное окружение и активируйте его
 ```
 py -m venv venv
-source venv/bin/activate
+путь к Activate.ps1
 ```
+
 3. Установите зависимости
 ```
 pip install -r requirements.txt
@@ -22,6 +22,7 @@ pip install -r requirements.txt
 
 5. Запустите миграции и загрузите данные в БД
 ```
+python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata data.json
 ```

@@ -5,5 +5,9 @@ class AboutAuthorView(TemplateView):
     template_name = 'about/author.html'
 
 
-class AboutProjectView(TemplateView):
-    template_name = 'about/project.html'
+class AboutDeliveryView(TemplateView):
+    template_name = 'about/delivery.html'
+
+
+class AboutPaymentView(TemplateView):
+    template_name = 'about/payment.html'

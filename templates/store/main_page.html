@@ -8,7 +8,7 @@
 <p>Обирайте унікальні та практичні шкіряні аксесуари, які підкреслять ваш стиль і будуть служити вам багато років.</p>
 <section class="tiles">
     {% for item in page_obj %}
-    <article class="style{{ range|random }}">
+    <article class="product-card style{{ range|random }}">
         <span class="image">
         {% if item.image %}
             <img src="{{ item.image.url }}" alt="" style="width: 353px; height: 326px;" />

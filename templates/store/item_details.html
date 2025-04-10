@@ -20,8 +20,8 @@
     {{ item.description }}{{ item.description }}
 </p>
 {% if item.old_price %}
-    <p>Стара ціна: <s>{{ item.old_price }} гривень</s>
-    Нова ціна: <b>{{ item.price }}</b> гривень </p>
+    <p>Стара ціна: <s>{{ item.old_price }}</s> гривень</p>
+    <p>Нова ціна: <b>{{ item.price }}</b> гривень </p>
 {% else %}
     <p>Ціна: <b>{{ item.price }}</b> гривень </p>
 {% endif %}

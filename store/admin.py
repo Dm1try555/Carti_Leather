@@ -27,6 +27,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 class ItemTagAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'short_description', 'item_list',)
+   
 
     def short_description(self, obj):
         if len(obj.description) > 100:
@@ -39,8 +40,8 @@ class ItemTagAdmin(admin.ModelAdmin):
             pk=o.get('object_id')
         ) for o in obj.items.values()]
 
-    short_description.short_description = 'Описание'
-    item_list.short_description = 'Список товаров'
+    short_description.short_description = 'Опис'
+    item_list.short_description = 'Список товарів'
 
 
 admin.site.register(Item, ItemAdmin)
