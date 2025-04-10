@@ -1,6 +1,17 @@
 from django.contrib import admin
 
-from .models import Item, ItemTag
+from .models import Item, ItemTag, ItemImage
+
+
+
+class ItemImageInline(admin.TabularInline): 
+    model = ItemImage
+    extra = 3  # скільки порожніх форм буде показано
+    max_num = 5  # максимум зображень
+    fields = ['image']
+    verbose_name = 'Додаткове зображення'
+    verbose_name_plural = 'Додаткові зображення'
+
 
 
 class ItemAdmin(admin.ModelAdmin):
@@ -8,6 +19,8 @@ class ItemAdmin(admin.ModelAdmin):
                     'old_price', 'is_available', 'tag_list',)
     search_fields = ('title', 'description', 'tags__name',)
     list_filter = ('is_available', 'tags',)
+    inlines = [ItemImageInline]
+    
 
     def short_description(self, obj):
         if len(obj.description) > 100:
@@ -21,8 +34,8 @@ class ItemAdmin(admin.ModelAdmin):
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())
 
-    short_description.short_description = 'Описание'
-    tag_list.short_description = 'Список категорий'
+    short_description.short_description = 'Опис'
+    tag_list.short_description = 'Список категорій'
 
 
 class ItemTagAdmin(admin.ModelAdmin):
@@ -42,6 +55,7 @@ class ItemTagAdmin(admin.ModelAdmin):
 
     short_description.short_description = 'Опис'
     item_list.short_description = 'Список товарів'
+
 
 
 admin.site.register(Item, ItemAdmin)

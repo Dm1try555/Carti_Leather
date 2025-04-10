@@ -16,8 +16,8 @@ class OrderAdmin(admin.ModelAdmin):
     def total_price_field(self, obj):
         return obj.total_price
 
-    total_price_field.short_description = 'Общая цена'
-    order_items.short_description = 'Список товаров'
+    total_price_field.short_description = 'Загальна сума'
+    order_items.short_description = 'Список товарів'
 
 
 class OrderItemAdmin(admin.ModelAdmin):
@@ -28,13 +28,15 @@ class OrderItemAdmin(admin.ModelAdmin):
     def total_price_field(self, obj):
         return obj.total_price
 
-    total_price_field.short_description = 'Общая цена'
+    total_price_field.short_description = 'Загальна сума'
 
 
 class ShippingAddressAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'email',
                     'phone', 'address_line_1', 'address_line_2',)
     search_fields = ('first_name', 'last_name', 'email',)
+
+
 
 
 admin.site.register(Order, OrderAdmin)

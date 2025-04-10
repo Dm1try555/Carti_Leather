@@ -1,28 +1,41 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% load static %}
+
 <h2>{{ item.title }}</h2>
+
 <p>Товар належить до категорії:
-{% for tag in item.tags.all %}
-    <b><a href="{% url 'store:tag_details' tag.slug %}">{{ tag }}</a></b>
-    {% if not forloop.last %},{% endif %}
-{% endfor %}
+    {% for tag in item.tags.all %}
+        <b><a href="{% url 'store:tag_details' tag.slug %}">{{ tag }}</a></b>{% if not forloop.last %},{% endif %}
+    {% endfor %}
 </p>
-{% if item.image %}
-    <p><span class="image left"><img src="{{ item.image.url }}" alt="" style="max-width: 200px; max-height: 200px;"/>
-{% else %}
-    <p><span class="image left"><img src="{% static "images/pic14.jpg" %}" alt="" />
-{% endif %}
-    <a href="{% url 'cart:add_to_cart' item.slug %}" class="button small" style="margin-top:10px;">
-        Додати до кошику</a>
-    </span>
-    {{ item.description }}{{ item.description }}
-</p>
+
+<!-- Галерея зображень -->
+<div style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 20px;">
+    {% if item.image %}
+        <a href="{{ item.image.url }}" data-lightbox="item-gallery">
+            <img src="{{ item.image.url }}" alt="Фото" style="width: 220px; height: 220px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
+        </a>
+    {% endif %}
+    {% for img in item.images.all %}
+        <a href="{{ img.image.url }}" data-lightbox="item-gallery">
+            <img src="{{ img.image.url }}" alt="Фото" style="width: 220px; height: 220px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
+        </a>
+    {% endfor %}
+</div>
+
+<!-- Кнопка додавання до кошика -->
+<a href="{% url 'cart:add_to_cart' item.slug %}" class="button small" style="margin-bottom: 20px; display:inline-block;">
+    Додати до кошику
+</a>
+
+<!-- Опис і ціни -->
+<p>{{ item.description | linebreaksbr }}</p>
 {% if item.old_price %}
     <p>Стара ціна: <s>{{ item.old_price }}</s> гривень</p>
-    <p>Нова ціна: <b>{{ item.price }}</b> гривень </p>
+    <p>Нова ціна: <b>{{ item.price }}</b> гривень</p>
 {% else %}
-    <p>Ціна: <b>{{ item.price }}</b> гривень </p>
+    <p>Ціна: <b>{{ item.price }}</b> гривень</p>
 {% endif %}
-{% endblock %} 
+
+{% endblock %}
