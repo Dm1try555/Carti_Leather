@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
-
+import secrets
 from dotenv import load_dotenv
+
 
 
 load_dotenv()
@@ -13,8 +14,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = secrets.token_urlsafe(50)
+print(f"SECRET_KEY: {SECRET_KEY}")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,11 +77,11 @@ WSGI_APPLICATION = 'OnlineStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'carti_leather',
-        'USER': 'carti',
-        'PASSWORD': '113355',
-        'HOST': 'localhost',
-        'PORT': '5432',    
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),    
     }
 }
 
