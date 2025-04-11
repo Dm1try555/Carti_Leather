@@ -1,27 +1,31 @@
+version: '3.8'
+
 services:
   web:
     build: .
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - .env  # Используйте файл .env для ваших переменных окружения
     volumes:
       - .:/app
       - static:/app/static
       - media:/app/media
     depends_on:
-      - db
-
+      - db  # Обеспечивает зависимость от базы данных
+    networks:
+      - mynetwork
 
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_DB: ${DB_NAME}        # Используйте переменные из файла .env
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
+      - db_data:/var/lib/postgresql/data  # Данные базы данных будут сохранены в volume
+    networks:
+      - mynetwork
 
   nginx:
     image: nginx:latest
@@ -30,13 +34,19 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - etc/letsencrypt:/etc/letsencrypt
+      - ./etc/letsencrypt:/etc/letsencrypt
       - static:/app/static
       - media:/app/media
     depends_on:
       - web
+    networks:
+      - mynetwork
 
 volumes:
   db_data:
   static:
   media:
+
+networks:
+  mynetwork:
+    driver: bridge
