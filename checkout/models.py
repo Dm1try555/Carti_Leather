@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+import requests
+from django.conf import settings
 from store.models import Item
 
 
@@ -98,7 +99,38 @@ class ShippingAddress(models.Model):
     def __str__(self):
         return f"""
         {self.address_line_1} {self.address_line_2}
-        Для: {self.first_name} {self.last_name},
-        Почта: {self.email},
-        Телефон: {self.phone}
+        {self.first_name} {self.last_name} {self.phone} {self.email}
         """
+    
+
+API_KEY = "c4357f4a435f6a68cea55f2c278a434a"
+
+
+class NovaPoshtaAPI:
+    def __init__(self):
+        self.api_key = API_KEY
+        self.base_url = "https://api.novaposhta.ua/v2.0/json/"
+
+    def get_cities(self):
+        """Получение списка городов."""
+        url = f"{self.base_url}address/generalCities"
+        payload = {
+            "apiKey": self.api_key,
+            "modelName": "Address",
+            "calledMethod": "getCities",
+            "methodProperties": {}
+        }
+        response = requests.post(url, json=payload)
+        return response.json()
+
+    def get_offices(self, city_name):
+        """Получение списка отделений по названию города."""
+        url = f"{self.base_url}address/getWarehouses"
+        payload = {
+            "apiKey": self.api_key,
+            "modelName": "Address",
+            "calledMethod": "getWarehouses",
+            "methodProperties": {"CityName": city_name}
+        }
+        response = requests.post(url, json=payload)
+        return response.json()

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'about.apps.AboutConfig',
     'taggit',
+    
 ]
 
 MIDDLEWARE = [

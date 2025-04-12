@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Города Новой Пошти</title>
+</head>
+<body>
+    <h1>Города Новой Пошти</h1>
+    <ul>
+        {% for city in cities %}
+            <li><a href="{% url 'offices' city.CityName %}">{{ city.CityName }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

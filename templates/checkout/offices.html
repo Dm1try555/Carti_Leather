@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отделения Новой Пошти в {{ city_name }}</title>
+</head>
+<body>
+    <h1>Отделения Новой Пошти в {{ city_name }}</h1>
+    <ul>
+        {% for office in offices %}
+            <li>{{ office.Description }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

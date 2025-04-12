@@ -2,9 +2,72 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
 from cart.views import Cart
 from .forms import OrderCreateForm
-from .models import Order, OrderItem, ShippingAddress
+from .models import Order, OrderItem, ShippingAddress, NovaPoshtaAPI
+
+
+
+import json
+import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+def get_cities(request):
+    """
+    Функция для получения списка городов Новой Почты.
+    """
+    # URL для API Новой Почты
+    url = 'https://api.novaposhta.ua/v2.0/json/'
+
+    # Параметры запроса для получения списка городов
+    payload = {
+        "apiKey": 'c4357f4a435f6a68cea55f2c278a434a',  # Ваш API-ключ
+        "modelName": "Address",
+        "calledMethod": "getCities",
+        "methodProperties": {}
+    }
+
+    # Отправляем POST-запрос на API Новой Почты
+    response = requests.post(url, json=payload)
+
+    # Извлекаем данные из ответа
+    cities_data = response.json().get('data', [])
+    cities = [{'name': city['Description'], 'ref': city['Ref']} for city in cities_data]
+
+    return JsonResponse({'cities': cities})
+
+
+def get_offices(request, city_ref):
+    """
+    Функция для получения списка отделений Новой Почты по городу.
+    """
+    # URL для API Новой Почты
+    url = 'https://api.novaposhta.ua/v2.0/json/'
+
+    # Параметры запроса для получения списка отделений
+    payload = {
+        "apiKey": 'c4357f4a435f6a68cea55f2c278a434a',  # Ваш API-ключ
+        "modelName": "Address",
+        "calledMethod": "getWarehouses",
+        "methodProperties": {
+            "CityRef": city_ref  # Код города (ref)
+        }
+    }
+
+    # Отправляем POST-запрос на API Новой Почты
+    response = requests.post(url, json=payload)
+
+    # Извлекаем данные из ответа
+    offices_data = response.json().get('data', [])
+    offices = [{'name': office['Description'], 'ref': office['Ref']} for office in offices_data]
+
+    return JsonResponse({'offices': offices})
 
 
 @login_required
@@ -15,9 +78,7 @@ def checkout(request):
     cart = Cart.objects.get(user=request.user)
     form = OrderCreateForm()
     context = {'cart': cart, 'form': form}
-
     return render(request, 'checkout/checkout.html', context)
-
 
 @login_required
 def thank_you(request, order_id):
@@ -26,7 +87,6 @@ def thank_you(request, order_id):
     """
     order = get_object_or_404(Order, id=order_id, user=request.user)
     return render(request, 'checkout/thank_you.html', {'order': order})
-
 
 @login_required
 def create_order(request):
@@ -67,7 +127,8 @@ def create_order(request):
             return redirect('checkout:thank_you', order_id=order.id)
     else:
         form = OrderCreateForm()
+    
     messages.warning(
         request, 'Форма не была корректно обработана, введите данные еще раз')
     context = {'form': form, 'cart': cart}
-    return render(request, 'checkout/checkout.html', context)
+    return render(request, 'checkout/create_order.html', context)
