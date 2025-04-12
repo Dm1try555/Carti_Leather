@@ -3,4 +3,9 @@
 {% block content %}
   <h1>Дякую за відгук!</h1>
   <p>Ваше повідомлення вже прийняте для обробки. Найближчим часом ми зв'яжемося з Вами.</p>
+  <div class="to-main">
+    <a href="{% url "store:home" %}">
+      <h1 class="button">На головну</h1>
+      </a>
+  </div>
 {% endblock %}
