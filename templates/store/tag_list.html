@@ -8,7 +8,7 @@
     <a href="{% url 'store:tag_details' tag.slug %}"><b>{{ tag.name }}</b></a>
     <p><span class="image right">
         {% if tag.image %}
-            <img src="{{ tag.image.url }}" alt="" style="width: 200px; height: 200px;"/>
+            <img src="{{ tag.image.url }}" alt="" style="width: 220px; height: 220px;"/>
         {% else %}
             <img src="{% static "images/pic14.jpg" %}" alt="" />
         {% endif %}

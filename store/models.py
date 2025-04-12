@@ -4,18 +4,24 @@ from taggit.managers import TaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
 
+
 class ItemTag(TagBase):
-    image = models.ImageField(
+     slug = models.SlugField(
+        unique=True,
+        max_length=50,
+        verbose_name='Slug',
+    )
+     image = models.ImageField(
         upload_to='categories/',
         verbose_name='Зображення',
         blank=True
     )
-    description = models.TextField(
+     description = models.TextField(
         blank=True,
         verbose_name='Опис',
         )
 
-    class Meta:
+     class Meta:
         verbose_name = _("Категорія")
         verbose_name_plural = _("Категорії")
 
@@ -32,7 +38,7 @@ class TaggedItem(GenericTaggedItemBase):
 class Item(models.Model):
     title = models.CharField(max_length=200, verbose_name='Назва',)
     description = models.TextField(verbose_name='Опис',)
-    slug = models.CharField(
+    slug = models.SlugField(
         unique=True,
         max_length=50,
     )

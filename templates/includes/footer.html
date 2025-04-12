@@ -7,13 +7,40 @@
                 {% csrf_token %}
                 <div class="fields">
                     <div class="field half">
-                        <input type="text" name="feedback_name" id="feedback_name" placeholder="Ім'я" />
+                        <input type="text" name="feedback_name" id="feedback_name" placeholder="Ім'я" required/>
                     </div>
                     <div class="field half">
                         <input type="email" name="feedback_email" id="feedback_email" placeholder="Електронна пошта" />
                     </div>
+                    <div class="field half">
+                        <input type="tel"
+                               name="feedback_phone"
+                               id="feedback_phone"
+                               placeholder="+380XXXXXXXXX"
+                               maxlength="13"
+                               pattern="^\+380\d{9}$"
+                               required
+                               title="Введіть номер у форматі +380XXXXXXXXX" />
+                    </div>
+                    
+                    <script>
+                        const phoneInput = document.getElementById("feedback_phone");
+                    
+                        phoneInput.addEventListener("input", function () {
+                            const value = phoneInput.value;
+                            const pattern = /^\+380\d{0,9}$/;
+                    
+                            if (!pattern.test(value)) {
+                                phoneInput.setCustomValidity("Номер повинен бути у форматі +380XXXXXXXXX");
+                            } else {
+                                phoneInput.setCustomValidity("");
+                            }
+                        });
+                    </script>
+
+
                     <div class="field">
-                        <textarea name="feedback_message" id="feedback_message" placeholder="Повідомлення" maxlength="500"></textarea>
+                        <textarea name="feedback_message" id="feedback_message" placeholder="Повідомлення" maxlength="500" required></textarea>
                         <small>Максимальна кількість символів 500</small>
                     </div>
                 </div>
