@@ -4,9 +4,10 @@ import logging
 import telegram
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.contrib.auth import logout
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from django.conf import settings
+
 
 from OnlineStore.settings import TELEGRAM_CHAT_ID, TELEGRAM_TOKEN
 from checkout.models import Order
@@ -72,3 +73,11 @@ def feedback_processing(request):
 
             return render(request, 'users/feedback_success.html')
     return render(request, 'users/feedback_failed.html')
+
+
+def logout_view(request):
+    """
+    Представление выхода из аккаунта.
+    """
+    logout(request)  # Завершаем сессию пользователя
+    return render(request, 'users/logged_out.html')

@@ -1,6 +1,10 @@
 from django.db import models
 
 
+
+
+
+
 class Feedback(models.Model):
     feedback_name = models.CharField(max_length=50, verbose_name='Имя покупателя',)
     feedback_email = models.EmailField(verbose_name='Почта покупателя',)

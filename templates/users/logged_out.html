@@ -2,5 +2,9 @@
 
 {% block content %}
   <h1>Ви успішно вийшли із системи</h1>
-  <p>Повернутися до <a href="{% url 'users:login' %}">сторінки входу</a>.</p>
+  <button onclick="window.location.href='{% url 'store:home' %}'" class="btn btn-primary">Повернутися на головну</button>
+  <button onclick="window.location.href='{% url 'users:login' %}'" class="btn btn-primary">Увійти</button>
+  
+  
 {% endblock %}
+

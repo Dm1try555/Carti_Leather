@@ -2,7 +2,10 @@
 <footer id="footer">
     <div class="inner">
         <section>
-            <h2>Залишились питання? Зв'яжіться з нами!</h2>
+            <h2>Залишились питання?
+                <p>Бажаєте зробити замовлення?</p>
+                <p>Зв'яжіться з нами!</p>
+            </h2>
             <form method="post" action="{% url 'users:feedback_processing'%}">
                 {% csrf_token %}
                 <div class="fields">
@@ -45,7 +48,7 @@
                     </div>
                 </div>
                 <ul class="actions">
-                    <li><input type="submit" value="Отправить" class="primary" /></li>
+                    <li><input type="submit" value="Відправити" class="primary" /></li>
                 </ul>
             </form>
         </section>
