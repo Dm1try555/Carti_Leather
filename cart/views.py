@@ -74,7 +74,7 @@ def update_cart_item(request):
 
         # Пересчитываем цену товара и общую стоимость корзины
         cart_item_total_price = cart_item.item.price * cart_item.quantity
-        cart_total_price = cart.total_price()  # Получаем обновленную общую цену корзины
+        cart_total_price = cart.total_price # Получаем обновленную общую цену корзины
 
         # Возвращаем обновленные данные
         return JsonResponse({
