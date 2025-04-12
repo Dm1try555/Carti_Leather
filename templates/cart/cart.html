@@ -34,7 +34,7 @@
                   <input type="hidden" id="cart-item-id-input" name="cart_item_id">
                 </form>
             </td>
-            <td class="cart-item-total-price" data-cart-item-id="{{ cart_item.id }}">{{ cart_item.total_price }}</td>
+            <td class="cart-item-total-price" data-cart-item-id="{{ cart_item.id }}" data-price-per-item="{{ cart_item.item.price }}">{{ cart_item.total_price }}</td>
             <td style="border: none; background-color: #ffffff;" align="center">
               <a href="{% url 'cart:delete_cart_item' cart_item.item.slug %}">
                 <img src ="{% static "images/garbage.svg" %}" width="25" height="25" >

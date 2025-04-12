@@ -9,14 +9,14 @@ class Cart(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='carts',
-        verbose_name='Покупатель',
+        verbose_name='Покупець',
     )
     created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name='Дата создания',)
+        auto_now_add=True, verbose_name='Дата створення',)
 
     class Meta:
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'Корзины'
+        verbose_name = 'Кошик'
+        verbose_name_plural = 'Кошики'
 
     @property
     def total_price(self):
@@ -35,7 +35,7 @@ class CartItem(models.Model):
         Cart,
         on_delete=models.CASCADE,
         related_name='items',
-        verbose_name='Корзина',
+        verbose_name='Кошик',
     )
     item = models.ForeignKey(
         Item,
@@ -43,11 +43,11 @@ class CartItem(models.Model):
         verbose_name='Товар',
     )
     quantity = models.PositiveIntegerField(
-        default=1, verbose_name='Количество',)
+        default=1, verbose_name='Кількість',)
 
     class Meta:
-        verbose_name = 'Товар в корзине'
-        verbose_name_plural = 'Товары в корзине'
+        verbose_name = 'Товар в кошику'
+        verbose_name_plural = 'Товары в кошику'
 
     @property
     def total_price(self):

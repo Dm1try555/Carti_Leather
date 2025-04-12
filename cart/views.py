@@ -59,28 +59,28 @@ def delete_cart_item(request, item_slug):
 
 @login_required
 def update_cart_item(request):
-    """
-    Представление для обработки AJAX-запроса
-    и последущего обновления БД и отправки на
-    страницу JSON-ответа с необходимыми данными.
-    """
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST':
+        cart_id = request.POST.get('cart_id')
         cart_item_id = request.POST.get('cart_item_id')
         new_quantity = int(request.POST.get('new_quantity'))
-        cart_id = int(request.POST.get('cart_id'))
 
-        cart = Cart.objects.get(pk=cart_id)
-        cart_item = get_object_or_404(CartItem, id=cart_item_id)
+        # Получаем корзину и товар из корзины
+        cart = get_object_or_404(Cart, id=cart_id, user=request.user)
+        cart_item = get_object_or_404(CartItem, id=cart_item_id, cart=cart)
+
+        # Обновляем количество товара в корзине
         cart_item.quantity = new_quantity
         cart_item.save()
+
+        # Пересчитываем цену товара и общую стоимость корзины
+        cart_item_total_price = cart_item.item.price * cart_item.quantity
+        cart_total_price = cart.total_price()  # Получаем обновленную общую цену корзины
+
+        # Возвращаем обновленные данные
         return JsonResponse({
-            'success': True,
-            'cart_item_id': cart_item.id,
-            'cart_item_quantity': cart_item.quantity,
-            'cart_item_total_price': cart_item.total_price,
-            'cart_total_price': cart.total_price
+            'cart_item_total_price': cart_item_total_price,
+            'cart_total_price': cart_total_price,
         })
-    else:
-        return JsonResponse({
-            'success': False, 'error': 'Invalid request method'
-        })
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
