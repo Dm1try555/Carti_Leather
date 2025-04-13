@@ -32,3 +32,4 @@ closeBtn.addEventListener('click', () => {
   onlinePaymentInfo.style.display = 'none';
   overlay.style.display = 'none';
 });
+

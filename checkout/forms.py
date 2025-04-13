@@ -22,8 +22,8 @@ class OrderCreateForm(PlaceholderForm):
         help_text='Адрес (дополнительно)'
     )
     payment_method = forms.ChoiceField(choices=Order.PAYMENT_METHOD_CHOICES)
+    city_ref = forms.CharField(max_length=100, help_text='Місто')
+    office_ref = forms.CharField(max_length=100, help_text='Відділення')
 
+    
 
-class NovaPoshtaDeliveryForm(forms.Form):
-    city = forms.CharField(label="Місто", max_length=100)
-    warehouse = forms.CharField(label="Відділення", max_length=200)

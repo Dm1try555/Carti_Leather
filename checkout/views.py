@@ -9,7 +9,7 @@ import json
 
 from cart.views import Cart
 from .forms import OrderCreateForm
-from .models import Order, OrderItem, ShippingAddress, NovaPoshtaAPI
+from .models import Order, OrderItem, ShippingAddress
 
 
 
@@ -18,29 +18,24 @@ import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+
+
 def get_cities(request):
-    """
-    Функция для получения списка городов Новой Почты.
-    """
-    # URL для API Новой Почты
     url = 'https://api.novaposhta.ua/v2.0/json/'
 
-    # Параметры запроса для получения списка городов
     payload = {
-        "apiKey": 'c4357f4a435f6a68cea55f2c278a434a',  # Ваш API-ключ
+        "apiKey": 'c4357f4a435f6a68cea55f2c278a434a',
         "modelName": "Address",
         "calledMethod": "getCities",
         "methodProperties": {}
     }
 
-    # Отправляем POST-запрос на API Новой Почты
     response = requests.post(url, json=payload)
-
-    # Извлекаем данные из ответа
     cities_data = response.json().get('data', [])
-    cities = [{'name': city['Description'], 'ref': city['Ref']} for city in cities_data]
 
+    cities = [{'name': city['Description'], 'ref': city['Ref']} for city in cities_data]
     return JsonResponse({'cities': cities})
+
 
 
 def get_offices(request, city_ref):
@@ -52,7 +47,7 @@ def get_offices(request, city_ref):
 
     # Параметры запроса для получения списка отделений
     payload = {
-        "apiKey": 'c4357f4a435f6a68cea55f2c278a434a',  # Ваш API-ключ
+        "apiKey": 'c4357f4a435f6a68cea55f2c278a434a',  #API-ключ
         "modelName": "Address",
         "calledMethod": "getWarehouses",
         "methodProperties": {
@@ -103,6 +98,7 @@ def create_order(request):
             order = Order.objects.create(
                 payment_method=form.cleaned_data['payment_method'],
                 user=request.user,
+                
             )
 
             ShippingAddress.objects.create(
@@ -113,6 +109,7 @@ def create_order(request):
                 address_line_1=form.cleaned_data['address_line_1'],
                 address_line_2=form.cleaned_data['address_line_2'],
                 order=order,
+
             )
 
             for cart_item in cart.items.all():
