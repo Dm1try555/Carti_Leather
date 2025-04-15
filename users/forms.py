@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
@@ -37,13 +38,18 @@ class CreationForm(UserCreationForm):
         label=_('Підтвердження пароля'),
         widget=forms.PasswordInput(attrs={'placeholder': _('Підтвердження пароля')})
     )
+    phone = forms.CharField(
+        max_length=13,
+        label=_('Телефон'),
+        widget=forms.TextInput(attrs={'placeholder': _('Телефон')})
+    )
 
 
 
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'phone')
         
 
 

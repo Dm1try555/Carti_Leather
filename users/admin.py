@@ -23,4 +23,5 @@ class FeedbackAdmin(admin.ModelAdmin):
 
     short_message.short_description = 'Повідомлення'
 
+
 admin.site.register(Feedback, FeedbackAdmin)

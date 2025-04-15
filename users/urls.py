@@ -15,7 +15,9 @@ app_name = 'users'
 
 urlpatterns = [
     path('orders/', user_orders, name='user_orders'),
+
     path('profile/', profile, name='profile'),
+    
     path('feedback-processing/', feedback_processing, name='feedback_processing'),
     
     path('auth/logout/', logout_view, name='logout'),

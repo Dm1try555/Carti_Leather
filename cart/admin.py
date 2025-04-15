@@ -12,7 +12,7 @@ class CartItemAdmin(admin.ModelAdmin):
     def total_price_field(self, obj):
         return obj.total_price
 
-    total_price_field.short_description = 'Общая цена'
+    total_price_field.short_description = 'Загальна ціна'
 
 
 class CartAdmin(admin.ModelAdmin):
@@ -27,8 +27,8 @@ class CartAdmin(admin.ModelAdmin):
     def total_price_field(self, obj):
         return obj.total_price
 
-    cart_items.short_description = 'Список товаров'
-    total_price_field.short_description = 'Общая цена'
+    cart_items.short_description = 'Список товарів'
+    total_price_field.short_description = 'Загальна ціна'
 
 
 admin.site.register(Cart, CartAdmin)

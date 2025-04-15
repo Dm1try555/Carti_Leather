@@ -13,3 +13,66 @@
   .table-wrapper {
     overflow-x: auto;
   }
+
+.data-profile {
+  flex: 1;
+  margin-right: 60px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.profile-info {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.orders-info {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-settings {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-settings h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+
+.profile-settings h1 {
+  margin-bottom: 20px;
+  font-size: 48px;
+  text-align: center;
+}
+
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  text-align: center;
+  background-color: #616060;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}

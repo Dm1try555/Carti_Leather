@@ -18,3 +18,23 @@
   p {
     margin-bottom: 5px;
   }
+
+
+
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .btn {
+    flex: 1;
+    padding: 12px 20px;
+    text-align: center;
+    background-color: #616060;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
