@@ -1,4 +1,6 @@
 {% load static %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 <footer id="footer">
     <div class="inner">
         <section>
@@ -15,6 +17,7 @@
                     <div class="field half">
                         <input type="email" name="feedback_email" id="feedback_email" placeholder="Електронна пошта" />
                     </div>
+                    
                     <div class="field half">
                         <input type="tel"
                                name="feedback_phone"
@@ -40,7 +43,19 @@
                             }
                         });
                     </script>
+                    <div class="field half">
+                        <label>Доступні месенджери:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="viber" name="messengers" value="viber" />
+                            <label for="viber">Viber</label>
 
+                            <input type="checkbox" id="telegram" name="messengers" value="telegram" />
+                            <label for="telegram">Telegram</label>
+
+                            <input type="checkbox" id="whatsapp" name="messengers" value="whatsapp" />
+                            <label for="whatsapp">WhatsApp</label>
+                          </div>
+                    </div>
 
                     <div class="field">
                         <textarea name="feedback_message" id="feedback_message" placeholder="Повідомлення" maxlength="500" required></textarea>
