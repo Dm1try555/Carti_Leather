@@ -52,10 +52,22 @@ class CreationForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'phone')
         
 
+MESSENGER_CHOICES = [
+    ('viber', 'Viber'),
+    ('telegram', 'Telegram'),
+    ('whatsapp', 'WhatsApp'),
+]
 
 class FeedbackForm(forms.ModelForm):
+    feedback_messengers = forms.MultipleChoiceField(
+        choices=MESSENGER_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label='Доступні месенджери',
+    )
+
     class Meta:
         model = Feedback
-        fields = ['feedback_name', 'feedback_email', 'feedback_message', 'feedback_phone']
+        fields = ['feedback_name', 'feedback_email', 'feedback_message', 'feedback_phone', 'feedback_messengers']
 
 

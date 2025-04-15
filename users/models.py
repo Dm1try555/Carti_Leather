@@ -10,6 +10,8 @@ class Feedback(models.Model):
     feedback_email = models.EmailField(verbose_name='Пошта покупця',)
     feedback_message = models.TextField(verbose_name='Текст',)
     feedback_phone = models.CharField(max_length=13, verbose_name='Телефон покупця', blank=True, null=True)
+    
+    
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата створення',)
 
