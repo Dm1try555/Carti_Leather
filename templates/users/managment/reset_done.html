@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static "assets/css/profile.css"%}" />
+{% endblock %}
+
+
 {% block content %}
-<h1>Відновлення пароля завершено</h1>
-<p>Ваш пароль було збережено. Тепер ви можете увійти.</p>
-<p><a href="{% url 'users:login' %}">Увійти</a></p>
+<h1>Відновлення пароля завершено!</h1>
+<p>Ваш пароль було збережено. Тепер ви можете увійти!</p>
+<p><a class="btn" href="{% url 'users:login' %}">Увійти</a></p>
 {% endblock %}

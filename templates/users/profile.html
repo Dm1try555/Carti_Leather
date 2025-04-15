@@ -1,21 +1,28 @@
 {% extends 'base.html' %}
 
+
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static "assets/css/profile.css"%}" />
 {% endblock %}
 
+
 {% block content %}
 <div class="data-profile">
     <h1>Ваш профіль</h1>
     <div class="profile-info">
-        <p>Привіт, {{ request.user.get_username }}. Всього у Вас <strong>{{ request.user.orders.count }}</strong> замовлень.</p>
+        <span class="icon">👋</span>
+        <p>Привіт, <strong>{{ request.user.get_username }}</strong>. Всього у Вас <strong>{{ request.user.orders.count }}</strong> замовлень.</p>
     </div>
+    
     <div class="orders-info">
+        <span class="icon">📦</span>
         <p>Ваші замовлення: <a href="{% url 'users:user_orders' %}">Перейти до замовлень</a></p>
     </div>
+    
     <div class="profile-settings">
         <h2>Налаштування профілю</h2>
+        
         <div class="button-row">
             <a class="btn" href="{% url 'users:password_change' %}">Змінити пароль</a>
             <a class="btn" href="{% url 'users:logout' %}">Вийти</a>

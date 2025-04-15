@@ -145,8 +145,14 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'store:home'
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'cartiualeather@gmail.com'  # з якої пошти надсилати
+EMAIL_HOST_PASSWORD = 'iqdboakbnfrxiwez'  # пароль застосунку, не звичайний!
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 # Telegram
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
