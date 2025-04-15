@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import secrets
 from dotenv import load_dotenv
-import dj_database_url
+
 
 
 
