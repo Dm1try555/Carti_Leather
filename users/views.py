@@ -1,6 +1,7 @@
 import asyncio
 import logging
 
+from django.conf import settings
 import telegram
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -47,9 +48,8 @@ async def send_telegram_message(message):
     """
     Асинхронная функция для отправки сообщения в ТГ.
     """
-    bot = telegram.Bot(token='7919397747:AAHPLsnAXhM68PitKNER9bpZuzS0xK-l_S4')
-    chat_id = '549353219'
-    await bot.send_message(chat_id=chat_id, text=message)
+    bot = telegram.Bot(token=settings.TELEGRAM_TOKEN)
+    await bot.send_message(chat_id=settings.TELEGRAM_CHAT_ID, text=message)
 
 
 def feedback_processing(request):

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Order
+from .models import Order, ShippingAddress
 
 
 class PlaceholderForm(forms.Form):
@@ -10,20 +10,32 @@ class PlaceholderForm(forms.Form):
             field.widget.attrs['placeholder'] = field.help_text
 
 
+
+
 class OrderCreateForm(PlaceholderForm):
     first_name = forms.CharField(max_length=100, help_text='Ім\'я')
     last_name = forms.CharField(max_length=100, help_text='Прізвище')
     email = forms.EmailField(help_text='Email')
     phone = forms.CharField(max_length=13, help_text='Телефон')
-    address_line_1 = forms.CharField(max_length=100, help_text='Адрес')
-    address_line_2 = forms.CharField(
-        max_length=100,
-        required=False,
-        help_text='Адрес (дополнительно)'
-    )
     payment_method = forms.ChoiceField(choices=Order.PAYMENT_METHOD_CHOICES)
-    city_ref = forms.CharField(max_length=100, help_text='Місто')
-    office_ref = forms.CharField(max_length=100, help_text='Відділення')
+    feedback_messengers = forms.MultipleChoiceField(
+        choices=[
+            ('viber', ''),
+            ('telegram', ''),
+            ('whatsapp', ''),
+        ],
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label='Доступні месенджери',
+    )
+
+
+    class Meta:
+        model = ShippingAddress
+        fields = ['first_name', 'last_name', 'email', 'phone', 'city_ref', 'warehouse_ref', 'feedback_messengers']
+       
+
+    
 
     
 

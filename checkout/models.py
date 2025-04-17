@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-import requests
-from django.conf import settings
 from store.models import Item
 
 
@@ -86,12 +84,14 @@ class ShippingAddress(models.Model):
     last_name = models.CharField(max_length=50, verbose_name='Прізвище',)
     email = models.EmailField(verbose_name='Почта',)
     phone = models.CharField(max_length=20, verbose_name='Телефон',)
-    address_line_1 = models.CharField(max_length=200, verbose_name='Адрес',)
-    address_line_2 = models.CharField(max_length=200, blank=True, null=True, verbose_name='Адрес (дополнительно)',)
-    order = models.OneToOneField(
-        Order, on_delete=models.CASCADE, related_name='shipping_address', verbose_name='Замовлення',)
     city_ref = models.CharField(max_length=100, blank=True)
     warehouse_ref = models.CharField(max_length=100, blank=True)
+    order = models.OneToOneField(
+        Order, on_delete=models.CASCADE, related_name='shipping_address', verbose_name='Замовлення',)
+    feedback_messengers = models.JSONField(default=list, blank=True)
+    
+    
+    
 
     class Meta:
         verbose_name = 'Адрес доставки'
@@ -99,7 +99,7 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return f"""
-        {self.address_line_1} {self.address_line_2}
+        {self.city_ref} {self.warehouse_ref}
         {self.first_name} {self.last_name} {self.phone} {self.email}
         """
     

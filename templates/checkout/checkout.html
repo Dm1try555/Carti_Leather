@@ -42,18 +42,36 @@
             </div>
           {% endif %}
         {% endfor %}
+        <div class="field half">
+          <label>Доступні месенджери:</label>
+          <div class="checkbox-group">
+              <input type="checkbox" id="viber" name="feedback_messengers" value="viber" />
+              <label for="viber">Viber</label>
+
+              <input type="checkbox" id="telegram" name="feedback_messengers" value="telegram" />
+              <label for="telegram">Telegram</label>
+
+              <input type="checkbox" id="whatsapp" name="feedback_messengers" value="whatsapp" />
+              <label for="whatsapp">WhatsApp</label>
+            </div>
+      </div>
+            <br>
+        <label for="nova-poshta">Виберіть місто та відділення НП:</label>
         
         <label for="city">Місто:</label>
-        <select id="city" name="city" onchange="getOffices()">
-          <optgroup label="Популярні міста" id="popular-cities"></optgroup>
-          <optgroup label="Інші міста" id="all-cities"></optgroup>
+        <select id="city" name="city" class="form-control">
+          <option value="">Оберіть місто</option>
+        </select>
+
+        <label for="office">Відділення:</label>
+        <select id="office" name="address_line_1" class="form-control">
+          <option value="">Оберіть відділення</option>
         </select>
         
-        <label for="warehouse">Відділення:</label>
-        <select id="warehouse" name="warehouse">
-            <option value="">Виберіть відділення</option>
-        </select>
-      </div>
+      </div>  
+
+
+
 
       <div class="col-md-4" style="width: 40%;">
         <h2>Ваше замовлення</h2>
@@ -113,89 +131,44 @@
 <script src="https://www.paypal.com/sdk/js?client-id=test&currency=UAH"></script>
 <script src="{% static 'assets/js/payment.js' %}"></script>
 <script>
-  const popular = [
-    { name: "Київ", ref: "ebc0eda9-93ec-11e3-b441-0050568002cf" },
-    { name: "Львів", ref: "8d5a980d-391c-11dd-90d9-001a92567626" },
-    { name: "Дніпро", ref: "db5c88b0-391c-11dd-90d9-001a92567626" },
-    { name: "Одеса", ref: "dcaad9d0-26c9-11e4-8c9a-0050568002cf" },
-    { name: "Харків", ref: "db5c88d0-391c-11dd-90d9-001a92567626" },
-    { name: "Запоріжжя", ref: "db5c88b4-391c-11dd-90d9-001a92567626" },
-    { name: "Вінниця", ref: "8d5a9804-391c-11dd-90d9-001a92567626" },
-    { name: "Миколаїв", ref: "dcaad9d4-26c9-11e4-8c9a-0050568002cf" },
-    { name: "Черкаси", ref: "8d5a9808-391c-11dd-90d9-001a92567626" },
-    { name: "Тернопіль", ref: "8d5a980c-391c-11dd-90d9-001a92567626" },
-    { name: "Івано-Франківськ", ref: "8d5a9810-391c-11dd-90d9-001a92567626" },
-    { name: "Ужгород", ref: "8d5a9814-391c-11dd-90d9-001a92567626" },
-    { name: "Житомир", ref: "8d5a9818-391c-11dd-90d9-001a92567626" },
-    { name: "Полтава", ref: "8d5a981c-391c-11dd-90d9-001a92567626" },
-    { name: "Суми", ref: "8d5a9820-391c-11dd-90d9-001a92567626" },
-    { name: "Рівне", ref: "8d5a9824-391c-11dd-90d9-001a92567626" },
-    { name: "Хмельницький", ref: "8d5a9828-391c-11dd-90d9-001a92567626" },
-    { name: "Чернівці", ref: "8d5a982c-391c-11dd-90d9-001a92567626" },
-    { name: "Луцьк", ref: "8d5a9830-391c-11dd-90d9-001a92567626" }];
-  
-    
-  
-  let allCities = [];
-  
-  function renderCities(cities) {
-    const popularContainer = document.getElementById("popular-cities");
-    const allContainer = document.getElementById("all-cities");
-  
-    popularContainer.innerHTML = "";
-    allContainer.innerHTML = "";
-  
-    popular.forEach(city => {
-      const option = document.createElement("option");
-      option.value = city.ref;
-      option.textContent = city.name;
-      popularContainer.appendChild(option);
-    });
-  
-    cities.forEach(city => {
-      const option = document.createElement("option");
-      option.value = city.ref;
-      option.textContent = city.name;
-      allContainer.appendChild(option);
-    });
-  }
-  
-  function filterCities() {
-    const filter = document.getElementById("city_input").value.toLowerCase();
-    const options = document.querySelectorAll("#all-cities option");
-  
-    options.forEach(opt => {
-      const isVisible = opt.textContent.toLowerCase().includes(filter);
-      opt.style.display = isVisible ? "block" : "none";
-    });
-  }
-  
-  // Підвантажити всі міста
-  fetch("{% url 'checkout:cities' %}")
-    .then(res => res.json())
-    .then(data => {
-      allCities = data.cities;
-      renderCities(allCities);
-    });
-  
-  // Підвантажити відділення при виборі міста
-  function getOffices() {
-    const cityRef = document.getElementById("city").value;
-    if (!cityRef) return;
-  
-    fetch(`/checkout/offices/${cityRef}/`)
-      .then(res => res.json())
+  document.addEventListener("DOMContentLoaded", function () {
+    const citySelect = document.getElementById("city");
+    const officeSelect = document.getElementById("office");
+
+    // Завантаження міст
+    fetch("{% url 'checkout:cities' %}")
+      .then(response => response.json())
       .then(data => {
-        const warehouseSelect = document.getElementById("warehouse");
-        warehouseSelect.innerHTML = '<option value="">Виберіть відділення</option>';
-        data.offices.forEach(office => {
+        data.cities.forEach(city => {
           const option = document.createElement("option");
-          option.value = office.ref;
-          option.textContent = office.name;
-          warehouseSelect.appendChild(option);
+          option.value = city.ref;
+          option.textContent = city.name;
+          citySelect.appendChild(option);
         });
       });
-  }
+
+    // При виборі міста – завантажити відділення
+    citySelect.addEventListener("change", function () {
+      const cityRef = this.value;
+
+      // Очистити список відділень
+      officeSelect.innerHTML = '<option value="">Оберіть відділення</option>';
+
+      if (cityRef) {
+        fetch(`/checkout/offices/${cityRef}/`)
+          .then(response => response.json())
+          .then(data => {
+            data.offices.forEach(office => {
+              const option = document.createElement("option");
+              option.value = office.name;
+              option.textContent = office.name;
+              officeSelect.appendChild(option);
+            });
+          });
+      }
+    });
+  });
 </script>
+
   
 {% endblock %}
