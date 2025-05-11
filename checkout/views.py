@@ -51,7 +51,7 @@ def popup(request, order_id):
 def create_order(request):
     cart = get_object_or_404(Cart, user=request.user)
 
-    if cart.items.exists() and request.method == 'POST':
+    if request.method == 'POST' and cart.items.exists():
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = Order.objects.create(
@@ -99,6 +99,8 @@ def create_order(request):
             )
             asyncio.run(send_telegram_message(message))
             return redirect('checkout:popup', order_id=order.id)
+    else:
+        form = OrderCreateForm()  # <-- ЦЕ ВАЖЛИВО! Створення форми для GET-запиту
 
     messages.warning(request, 'Форма не була коректно заповнена. Спробуйте ще раз.')
     context = {'form': form, 'cart': cart}
