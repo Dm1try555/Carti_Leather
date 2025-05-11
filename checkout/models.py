@@ -5,11 +5,11 @@ from store.models import Item
 
 class Order(models.Model):
     PAYMENT_METHOD_CHOICES = [
-        ('cash_pay', 'Накладений платіж'),
-        ('cash_online', 'Оплата онлайн'),
+        ('cash_pay', 'По передоплаті онлайн'),
+        ('cash_online', 'Повна оплата онлайн'),
     ]
     STATUS_CHOICES = [
-        ('created', 'Ствоерений'),
+        ('created', 'Створений'),
         ('processing', 'У процесі'),
         ('shipped', 'Відправлений'),
         ('delivered', 'Доставлений'),
@@ -68,7 +68,7 @@ class OrderItem(models.Model):
 
     class Meta:
         verbose_name = 'Товар в замовленні'
-        verbose_name_plural = 'Товары в замовленні'
+        verbose_name_plural = 'Товари в замовленні'
 
     @property
     def total_price(self):
@@ -78,29 +78,27 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} x {self.item.title} in Order {self.order.id}"
 
-
 class ShippingAddress(models.Model):
-    first_name = models.CharField(max_length=50, verbose_name='Ім\'я',)
-    last_name = models.CharField(max_length=50, verbose_name='Прізвище',)
-    email = models.EmailField(verbose_name='Почта',)
-    phone = models.CharField(max_length=20, verbose_name='Телефон',)
-    city_ref = models.CharField(max_length=100, blank=True)
-    warehouse_ref = models.CharField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=50, verbose_name="Ім'я")
+    last_name = models.CharField(max_length=50, verbose_name="Прізвище")
+    email = models.EmailField(verbose_name='Почта')
+    phone = models.CharField(max_length=20, verbose_name='Телефон')
+    city = models.CharField(max_length=255, verbose_name='Місто')
+    office = models.CharField(max_length=100, verbose_name='Відділення')
     order = models.OneToOneField(
-        Order, on_delete=models.CASCADE, related_name='shipping_address', verbose_name='Замовлення',)
-    feedback_messengers = models.JSONField(default=list, blank=True)
-    
-    
-    
+        Order,
+        on_delete=models.CASCADE,
+        related_name='shipping_address',
+        verbose_name='Замовлення'
+    )
+    feedback_messengers = models.JSONField(default=list, blank=True, verbose_name='Месенджери для звʼязку')
 
     class Meta:
         verbose_name = 'Адрес доставки'
         verbose_name_plural = 'Адреса доставки'
 
     def __str__(self):
-        return f"""
-        {self.city_ref} {self.warehouse_ref}
-        {self.first_name} {self.last_name} {self.phone} {self.email}
-        """
+        return f"{self.city} | Відділення НП: №{self.office} | {self.first_name} {self.last_name} | {self.phone} | {self.email}"
+
     
 

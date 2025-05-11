@@ -1,90 +1,186 @@
-/* Error message */
-.error-message {
-    color: #dc3545;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  .error-message span {
+/* Загальні стилі для .np-info-container */
+.np-info-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%; /* додаємо повну ширину */
+    box-sizing: border-box; /* щоб padding не виходив за межі */
+}
+
+.np-info-container h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.form-item {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 1.1em;
+    margin-bottom: 8px;
     display: block;
-    margin-bottom: 5px;
-  }
+    color: #333;
+}
 
-/* Popup message */
-  .messages-container {
-    position: fixed;
-    top: 0;
-    left: 0;
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.form-control {
     width: 100%;
-    height: 10%;
-    background-color: rgb(255, 94, 94);
-    color: #fff;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  
-  .messages-container.show {
-    opacity: 1;
-  }
-  
-  .messages-container.hide {
-    opacity: 0;
-  }
-
-
-/* Popup cart online */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
 }
 
-
-#close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
 }
-
-#online-payment-info {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40%;
-  height: 70%;
-  background-color: white;
-  z-index: 1000;
-  padding: 20px;
-  display: none;
-}
-
 
 .suggestions-list {
-  border: 1px solid #ccc;
-  max-height: 150px;
-  overflow-y: auto;
-  position: absolute;
-  background-color: white;
-  z-index: 10;
-  width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+    z-index: 100;
 }
 
-.suggestions-list div {
-  padding: 8px;
-  cursor: pointer;
+.suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
 }
 
-.suggestions-list div:hover {
-  background-color: #eee;
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
 }
+
+.hidden {
+    display: none;
+}
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 768px) {
+    .np-info-container {
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    .np-info-container h3 {
+        font-size: 1.25em;
+    }
+
+    .form-item {
+        margin-bottom: 15px;
+    }
+
+    .form-label {
+        font-size: 1em;
+    }
+
+    .form-control {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .autocomplete-wrapper {
+        position: relative;
+    }
+
+    .col-md-4 {
+        width: 100%;
+        padding: 0;
+    }
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        display: block; /* додаємо, щоб таблиця займала всю ширину */
+    }
+
+    table.alt {
+        width: 100%;
+    }
+
+    .table-wrapper table th,
+    .table-wrapper table td {
+        padding: 10px;
+        text-align: left;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .np-info-container {
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+    .np-info-container h3 {
+        font-size: 1.2em;
+    }
+
+    .form-item {
+        margin-bottom: 12px;
+    }
+
+    .form-label {
+        font-size: 0.9em;
+    }
+
+    .form-control {
+        font-size: 0.85em;
+        padding: 6px;
+    }
+}
+
+
+
+.h1-main {
+			text-align: center;
+			padding-right: 2.5em;
+		}
+
+
+    
+/* Стандартні стилі для кнопок */
+.actions input {
+    margin-right: 15px;
+}
+
+.actions input:last-child {
+    margin-right: 0; /* щоб не було відступу у останньої кнопки */
+}
+
+/* Медіа-запит для мобільних пристроїв */
+@media (max-width: 768px) {
+    .actions {
+        display: flex;
+        flex-direction: column; /* Розміщуємо кнопки одну під одною */
+        align-items: center; /* Центруємо кнопки */
+        overflow: visible;
+    }
+
+    .actions input {
+        margin-bottom: 15px; /* Встановлюємо відступи між кнопками */
+        width: 100%; /* Задаємо кнопкам ширину 100% */
+        box-sizing: border-box;
+        
+    }
+
+    .actions input:last-child {
+        margin-bottom: 0; /* Зникає відступ у останньої кнопки */
+    }
+}
+
+

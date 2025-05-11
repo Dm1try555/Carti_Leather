@@ -1,18 +1,20 @@
 .order-wrapper {
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  .order-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .table-wrapper {
-    overflow-x: auto;
-  }
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 80px;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
 
 .data-profile {
   flex: 1;
@@ -21,9 +23,6 @@
   background-color: #f9f9f9;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
-
-
 }
 
 /* Profile Page Styles */
@@ -39,15 +38,13 @@
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 .profile-info {
-  background-color: #ffffff; /* Light blue */
-  border-left: 6px solid #00796b; /* Teal accent */
+  background-color: #ffffff;
+  border-left: 6px solid #00796b;
 }
-
 .orders-info {
-  background-color: #ffffff; /* Light yellow */
-  border-left: 6px solid #fbc02d; /* Yellow accent */
+  background-color: #ffffff;
+  border-left: 6px solid #fbc02d;
 }
-
 .profile-info:hover,
 .orders-info:hover {
   transform: translateY(-5px);
@@ -79,31 +76,14 @@
   text-decoration: underline;
 }
 
-
-
-
-
-
-
 .profile-settings {
   margin-bottom: 20px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #9c27b0;
 }
-.profile-settings {
-  background-color: #ffffff; /* Light pink */
-  border-left: 6px solid #9c27b0; /* Purple accent */
-}
-
-
-
-
-
-
-
-
 
 .profile-settings h2 {
   margin-bottom: 20px;
@@ -111,13 +91,11 @@
   text-align: center;
 }
 
-
 .profile-settings h1 {
   margin-bottom: 40px;
   font-size: 48px;
   text-align: center;
 }
-
 
 .button-row {
   display: flex;
@@ -136,4 +114,50 @@
   transition: background-color 0.3s ease;
 }
 
+/* -------------------- MOBILE ADAPTATION -------------------- */
+@media screen and (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    gap: 10px;
+  }
 
+  .profile-info,
+  .orders-info,
+  .profile-settings {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .profile-info p,
+  .orders-info p {
+    font-size: 18px;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .data-profile {
+    margin-right: 55px;
+    padding: 15px;
+  }
+
+  .profile-settings h1 {
+    font-size: 32px;
+  }
+
+  .profile-settings h2 {
+    font-size: 18px;
+  }
+
+
+  table.alt {
+    max-width: 100%;
+    width: 100%;
+  }
+}

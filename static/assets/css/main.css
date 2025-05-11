@@ -2908,7 +2908,7 @@ input[type="radio"] + label:before {
 				}
 
 		#header nav {
-			position: fixed;
+			position: absolute;
 			right: 2em;
 			top: 2em;
 			z-index: 10000;
@@ -3004,6 +3004,7 @@ input[type="radio"] + label:before {
 				#header nav {
 					right: 0.5em;
 					top: 0.5em;
+					
 				}
 
 					#header nav ul li a[href="#menu"]:before, #header nav ul li a[href="#menu"]:after {
@@ -3208,8 +3209,14 @@ input[type="radio"] + label:before {
 
 			#main {
 				padding: 0em 0 4em 0 ;
+				margin-top: 4em;
 			}
 
+		}
+
+		.h1-main {
+			text-align: center;
+			padding-right: 2.5em;
 		}
 
 /* Footer */
@@ -3382,3 +3389,15 @@ input[type="radio"] + label:before {
 
 	color: red;
 	}
+
+
+.dropdown > a {
+	font-weight: 700;
+	color: _palette(accent1);
+	position: relative;
+
+	.arrow {
+	margin-left: 0.5em;
+	transition: transform 0.3s ease;
+	}
+}

@@ -2,7 +2,9 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static "assets/css/users.css"%}" />
+<link rel="stylesheet" href="{% static 'assets/css/users.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 {% endblock %}
 
 {% block content %}
@@ -10,29 +12,59 @@
 <form method="post">
   {% csrf_token %}
   {% for field in form %}
-  <p>
-  <div class="form-field">
-    <label for="{{ field.id_for_label }}">{{ field.label }}:</label> {{ field }}
-  </div>
+    <div class="form-field">
+      <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+
+      {% if field.field.widget.input_type == "password" %}
+        <div class="password-wrapper">
+          {{ field }}
+          <span class="toggle-password" onclick="togglePasswordVisibility(this)">
+            <i class="fa-solid fa-eye"></i>
+          </span>
+        </div>
+      {% else %}
+        {{ field }}
+      {% endif %}
+    </div>
+  {% endfor %}
+
   {% if form.errors %}
-  <div class="alert alert-danger">
-    {% for field, errors in form.errors.items %}
-      {% for error in errors %}
-        <span class="error-message">{{ error }}</span>
+    <div class="alert alert-danger">
+      {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+          <span class="error-message">{{ error }}</span>
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-  </div>
-{% endif %}
-</p>
-{% endfor %}
+    </div>
+  {% endif %}
+
   <br>
   <button type="submit">Увійти</button>
 </form>
-<div>
-  Ще не зареєстровані?
-  <a href="{% url 'users:signup' %}">Зареєструватись</a>
+
+<div class="form-actions">
+  <div class="signup-info">
+    <span>Ще не зареєстровані?</span>
+  </div>
+  <a href="{% url 'users:signup' %}" class="btn btn-signup">Зареєструватись</a>
+  <a href="{% url 'users:password_reset_form' %}" class="btn btn-reset">Забули пароль?</a>
 </div>
-<a href="{% url 'users:password_reset_form' %}">
-  Забули пароль?
-</a>
+
+<!-- JS для переключення пароля -->
+<script>
+  function togglePasswordVisibility(icon) {
+    const input = icon.previousElementSibling;
+    const eyeIcon = icon.querySelector('i');
+
+    if (input.type === "password") {
+      input.type = "text";
+      eyeIcon.classList.remove('fa-eye');
+      eyeIcon.classList.add('fa-eye-slash');
+    } else {
+      input.type = "password";
+      eyeIcon.classList.remove('fa-eye-slash');
+      eyeIcon.classList.add('fa-eye'); 
+    }
+  }
+</script>
 {% endblock %}

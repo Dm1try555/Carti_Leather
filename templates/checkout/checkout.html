@@ -1,38 +1,32 @@
 {% extends 'base.html' %}
-
 {% load static %}
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!-- jQuery UI -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
 
 {% block css %}
-<link rel="stylesheet" href="{% static "assets/css/checkout.css"%}" />
+<link rel="stylesheet" href="{% static 'assets/css/checkout.css'%}" />
 {% endblock %}
 
 {% block content %}
-<h1>Оформлення замовлення</h1>
-{% if messages %}
-<div class="messages-container">
-  <ul class="messages">
-    {% for message in messages %}
-      <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
+<h1 class="h1-main">Оформлення замовлення</h1>
+  {% if messages %}
+  <div class="messages-container">
+    <ul class="messages">
+      {% for message in messages %}
+        <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 <form method="post" action="{% url 'checkout:create_order'%}">
   {% csrf_token %}
-    
+  
   <section>
     <div class="row">
-      <div class="col-md-8" style="width: 60%; padding-right: 20px;">
+      <div class="col-12" style="padding-right: 20px;">
         <div><h2>Доставка</h2></div>
         {% for field in form %}
           {% if field.name != 'payment_method' %}
             <div class="form-group">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
               {{ field }}
               <div class="text-danger error-message">
                 {% for error in field.errors %}
@@ -42,133 +36,63 @@
             </div>
           {% endif %}
         {% endfor %}
-        <div class="field half">
-          <label>Доступні месенджери:</label>
-          <div class="checkbox-group">
-              <input type="checkbox" id="viber" name="feedback_messengers" value="viber" />
-              <label for="viber">Viber</label>
-
-              <input type="checkbox" id="telegram" name="feedback_messengers" value="telegram" />
-              <label for="telegram">Telegram</label>
-
-              <input type="checkbox" id="whatsapp" name="feedback_messengers" value="whatsapp" />
-              <label for="whatsapp">WhatsApp</label>
+        
+        <div class="container-fluid">
+            <h1>Ваше замовлення</h1>
+            {% if cart.items %}
+            <div class="table-wrapper">
+                <table class="alt">
+                    <thead>
+                        <tr>
+                            <th>Назва</th>
+                            <th>Кількість</th>
+                            <th>Ціна</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cart_item in cart.items.all %}
+                        <tr>
+                            <td>{{ cart_item.item.title|truncatechars:100 }}</td>
+                            <td>{{ cart_item.quantity }}</td>
+                            <td>{{ cart_item.total_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td><b>{{ cart.total_price }}</b></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
-      </div>
-            <br>
-        <label for="nova-poshta">Виберіть місто та відділення НП:</label>
-        
-        <label for="city">Місто:</label>
-        <select id="city" name="city" class="form-control">
-          <option value="">Оберіть місто</option>
-        </select>
+            {% else %}
+            Кошик пустий
+            <a href="{% url 'store:home' %}" class="button">Повернутися на головну</a>
+            {% endif %}
+            <!-- Вибір способу оплати -->
+            <div class="form-group">
+              <label for="{{ form.payment_method.id_for_label }}">{{ form.payment_method.label }}</label>
+              {{ form.payment_method }}
+            </div>
+        </div>
+    </section>
 
-        <label for="office">Відділення:</label>
-        <select id="office" name="address_line_1" class="form-control">
-          <option value="">Оберіть відділення</option>
-        </select>
-        
-      </div>  
-
-
-
-
-      <div class="col-md-4" style="width: 40%;">
-        <h2>Ваше замовлення</h2>
-        {% if cart.items.exists %}
-          <div class="table-wrapper">
-            <table class="alt">
-              <thead>
-                <tr>
-                  <th>Назва</th>
-                  <th>Кількість</th>
-                  <th>Ціна</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for cart_item in cart.items.all %}
-                <tr>
-                  <td>{{ cart_item.item.title|truncatechars:20 }}</td>
-                  <td>{{ cart_item.quantity }}</td>
-                  <td>{{ cart_item.total_price }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="2"></td>
-                  <td><b>{{ cart.total_price }}</b></td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        {% else %}
-          Кошик пустий
-          <a href="{% url 'store:home' %}"  style="margin-bottom: 100px; margin-top: 50px;" class="button">Повернутися на головну</a>
-        {% endif %}
-        <div><h2>Виберіть спосіб оплати</h2></div>
-        {{ form.payment_method }}
-        <!-- Вспливаюче вікно для опції "Карткою онлайн" -->
-        {% include 'checkout/popup.html' %}
-      </div>
+    <div class="actions" style="text-align: justify; margin-top: 100px;">
+      <input type="reset" value="Сбросити" class="reset-btn" style="border: 1px solid #ccc; padding: 0px; margin-left: 10px; text-align: center;">
+      {% if cart.items %}
+          <input type="submit" value="Перейти до оплати" class="primary submit-btn">
+      {% else %}
+          <input type="submit" value="Перейти до оплати" class="primary submit-btn disabled">
+      {% endif %}
     </div>
-  </section>
-
-  <div class="actions" style="text-align: justify; margin-top: 100px;">
-    <input type="reset" value="Сбросити" style="float: left;">
-    {% if cart.items.exists %}
-      <input type="submit" value="Відправити замовлення" class="primary" style="float: right;">
-    {% else %}
-      <input type="submit" value="Відправити замовлення" class="primary disabled" style="float: right;">
-    {% endif %}
-  </div>
-</form>
+  </form>
 {% endblock %}
+
+
 
 {% block js %}
 <script src="{% static 'assets/js/checkout.js' %}"></script>
-<!-- PayPal JavaScript SDK -->
-<script src="https://www.paypal.com/sdk/js?client-id=test&currency=UAH"></script>
-<script src="{% static 'assets/js/payment.js' %}"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const citySelect = document.getElementById("city");
-    const officeSelect = document.getElementById("office");
 
-    // Завантаження міст
-    fetch("{% url 'checkout:cities' %}")
-      .then(response => response.json())
-      .then(data => {
-        data.cities.forEach(city => {
-          const option = document.createElement("option");
-          option.value = city.ref;
-          option.textContent = city.name;
-          citySelect.appendChild(option);
-        });
-      });
 
-    // При виборі міста – завантажити відділення
-    citySelect.addEventListener("change", function () {
-      const cityRef = this.value;
-
-      // Очистити список відділень
-      officeSelect.innerHTML = '<option value="">Оберіть відділення</option>';
-
-      if (cityRef) {
-        fetch(`/checkout/offices/${cityRef}/`)
-          .then(response => response.json())
-          .then(data => {
-            data.offices.forEach(office => {
-              const option = document.createElement("option");
-              option.value = office.name;
-              option.textContent = office.name;
-              officeSelect.appendChild(option);
-            });
-          });
-      }
-    });
-  });
-</script>
-
-  
 {% endblock %}

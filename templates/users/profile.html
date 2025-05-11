@@ -8,8 +8,8 @@
 
 
 {% block content %}
+<h1>Ваш профіль</h1>
 <div class="data-profile">
-    <h1>Ваш профіль</h1>
     <div class="profile-info">
         <span class="icon">👋</span>
         <p>Привіт, <strong>{{ request.user.get_username }}</strong>. Всього у Вас <strong>{{ request.user.orders.count }}</strong> замовлень.</p>
@@ -26,8 +26,7 @@
         <div class="button-row">
             <a class="btn" href="{% url 'users:password_change' %}">Змінити пароль</a>
             <a class="btn" href="{% url 'users:logout' %}">Вийти</a>
-        </div>
-          
+        </div>  
     </div>
 
 

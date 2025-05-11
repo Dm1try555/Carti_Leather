@@ -32,10 +32,21 @@
 <!-- Menu -->
 <nav id="menu">
     <h2>Меню</h2>
-    <ul>
-        <li><a href="{% url 'store:tag_list' %}">Усі категорії</a></li>
-        <li><a href="{% url 'about:about_delivery' %}">Доставка</a></li>
-        <li><a href="{% url 'about:about_payment' %}">Оплата та Гарантія</a></li>
-        <li><a href="{% url 'about:about_me' %}">Контактні дані</a></li>
+    <ul class="main-menu">
+        <li class="dropdown">
+            <a href="{% url 'store:tag_list' %}" class="dropdown-toggle">
+                Категорії <span class="arrow">▾</span>
+            </a>
+            <ul class="dropdown-menu">
+                {% for tag in tags %}
+                    <li><a href="{% url 'store:tag_details' tag.slug %}">{{ tag.name }}</a></li>
+                {% empty %}
+                    <li><span>Немає категорій</span></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><a href="{% url 'about:about_delivery' %}"><strong>Доставка</strong></a></li>
+        <li><a href="{% url 'about:about_payment' %}"><strong>Оплата та Гарантія</strong></a></li>
+        <li><a href="{% url 'about:about_me' %}"><strong>Контактні дані</strong></a></li>
     </ul>
 </nav>

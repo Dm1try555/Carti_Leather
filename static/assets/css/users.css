@@ -1,21 +1,107 @@
+/* Контейнер для кнопок */
+.form-actions {
+  display: flex;
+  flex-direction: column; /* Расположение кнопок друг под другом */
+  gap: 20px; /* Отступ между кнопками */
+  margin-top: 20px; /* Отступ сверху */
+  align-items: center; /* Центрирование по горизонтали */
+}
+
+/* Стилизация кнопок */
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  width: 100%; 
+  max-width: 350px; 
+  box-sizing: border-box;
+  border: none;
+  background-color: #555; 
+  color: #fff; /* Белый текст */
+  transition: background-color 0.3s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.btn:hover {
+  color: #f2849e;
+  transform: translateY(-2px); /* Эффект поднятия */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+/* Стилизация для блока "Ще не зареєстровані?" */
+.signup-info {
+  text-align: center;
+  margin-bottom: 20px; /* Отступ между текстом и кнопками */
+  font-size: 18px;
+  font-weight: 500;
+  color: #555; /* Темный текст для контраста */
+  letter-spacing: 1px; /* Добавление межбуквенного интервала для улучшения читаемости */
+}
+
+.signup-info span {
+  font-size: 18px;
+  color: #555; /* Чуть темнее цвет для текста */
+  font-weight: 600; /* Сделаем текст жирным для выделения */
+  transition: color 0.3s;
+}
+
+.signup-info span:hover {
+  color: #f2849e
+}
+
+/* Стилизация полей формы */
 .form-field {
-    display: flex;
-    align-items: center;
-  }
-  .form-field label {
-    width: 200px;
-    padding-right: 10px;
-  }
-  .form-field input {
-    flex-grow: 1;
-    box-sizing: border-box;
-  }
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
 
-  .alert-danger {
-    color: red;
-  }
+.form-field label {
+  display: block;
+  margin-bottom: 4px;
+}
 
-  p {
-    margin-bottom: 5px;
-  }
+.form-field input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 
+.form-field input:focus {
+  outline: none;
+  border-color: #555;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Легкая тень синим цветом */
+}
+
+.alert-danger {
+  color: red;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+/* Стилизация пароля */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+}

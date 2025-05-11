@@ -1,18 +1,26 @@
 {% extends "base.html" %}
 
-{% block content %}
 {% load static %}
-    <h2>Список усіх категорій</h2>
-    <hr>
-{% for tag in page_obj %}
-    <a href="{% url 'store:tag_details' tag.slug %}"><b>{{ tag.name }}</b></a>
-    <p><span class="image right">
-        {% if tag.image %}
-            <img src="{{ tag.image.url }}" alt="" style="width: 220px; height: 220px;"/>
-        {% else %}
-            <img src="{% static "images/pic14.jpg" %}" alt="" />
-        {% endif %}
-    </span>{{tag.description}}{{tag.description}}</p>
-    {% if not forloop.last %}<hr>{% endif %}
-{% endfor %}
-{% endblock %} 
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/css/categories.css' %}">
+
+<h2 class="category-title">Наші категорії</h2>
+<div class="categories-grid">
+  {% for tag in page_obj %}
+    <div class="category-card">
+      <a href="{% url 'store:tag_details' tag.slug %}">
+        <img
+          src="{% if tag.image %}{{ tag.image.url }}{% else %}{% static 'images/pic14.jpg' %}{% endif %}"
+          alt="{{ tag.name }}"
+          class="category-image"
+        />
+        <h3 class="category-name">{{ tag.name }}</h3>
+      </a>
+      <p class="category-description">{{ tag.description }}</p>
+    </div>
+  {% empty %}
+    <p>Категорій не знайдено.</p>
+  {% endfor %}
+</div>
+{% endblock %}

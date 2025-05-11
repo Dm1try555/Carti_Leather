@@ -33,7 +33,7 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 class ShippingAddressAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'email',
-                    'phone', 'city_ref', 'warehouse_ref', 'order',)
+                    'phone', 'city', 'office', 'order',)
     search_fields = ('first_name', 'last_name', 'email',)
 
 
