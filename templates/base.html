@@ -12,8 +12,6 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 		
 
-
-		
 		<noscript><link rel="stylesheet" href="{% static "assets/css/noscript.css"%}" /></noscript>
 		{% block css %}
 		{% endblock %}
@@ -35,7 +33,7 @@
 						</div>
 					</div>
 				<!-- Footer -->
-                	{% include 'includes/footer.html' %} 
+				{% include 'includes/footer.html' %} 
 			</div>
 		<!-- Scripts -->
 			<script src={% static "assets/js/jquery.min.js"%}></script>
@@ -43,10 +41,8 @@
 			<script src={% static "assets/js/breakpoints.min.js"%}></script>
 			<script src={% static "assets/js/util.js"%}></script>
 			<script src={% static "assets/js/main.js"%}></script>
+			<script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
 			{% block js %}
 			{% endblock %}
-	
-		<script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
-
 	</body>
 </html>

@@ -48,9 +48,14 @@
 .count .plus{
     margin-left: 10px;
 }
+
 input[type='number'] {
-    -moz-appearance:textfield;
+    appearance: textfield;
+    -moz-appearance: textfield; 
+    -webkit-appearance: none;   
 }
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
