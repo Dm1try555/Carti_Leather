@@ -3204,20 +3204,33 @@ input[type="radio"] + label:before {
 	#main {
 		padding: 0em 0 6em 0 ;
 	}
+	.h1-main {
+			font-family: 'Georgia', serif;
+			font-size: 2.8rem;
+			font-weight: 700;
+			color: #5a3e1b; 
+			text-align: center;
+			margin-bottom: 0.5em;
+			margin-right: 60px;
+			line-height: 1.2;
+			text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+		}
 
-		@media screen and (max-width: 736px) {
+		@media screen and (max-width: 768px) {
 
 			#main {
-				padding: 0em 0 4em 0 ;
-				margin-top: 4em;
+				margin-top: 0;
 			}
 
+			.h1-main {
+				font-size: 2.2rem; /* трохи зменшено для мобільних */
+				color: #5a3e1b; 
+				text-align: left;
+				margin-right: 50px;
+			}
 		}
 
-		.h1-main {
-			text-align: center;
-			padding-right: 2.5em;
-		}
+		
 
 /* Footer */
 

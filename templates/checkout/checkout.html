@@ -22,7 +22,7 @@
   <section>
     <div class="row">
       <div class="col-12" style="padding-right: 20px;">
-        <div><h2>Доставка</h2></div>
+        <div><h2>Дані для доставки:</h2></div>
         {% for field in form %}
           {% if field.name != 'payment_method' %}
             <div class="form-group">
@@ -78,14 +78,23 @@
         </div>
     </section>
 
-    <div class="actions" style="text-align: justify; margin-top: 100px;">
-      <input type="reset" value="Сбросити" class="reset-btn" style="border: 1px solid #ccc; padding: 0px; margin-left: 10px; text-align: center;">
-      {% if cart.items %}
-          <input type="submit" value="Перейти до оплати" class="primary submit-btn">
-      {% else %}
-          <input type="submit" value="Перейти до оплати" class="primary submit-btn disabled">
-      {% endif %}
-    </div>
+      <div class="actions-button">
+          <input type="reset" value="Сбросити">
+          {% if cart.items %}
+              <button type="button" class="primary submit-btn" id="confirmBtn">Підтвердити</button>
+          {% else %}
+              <button type="button" class="primary submit-btn" id="confirmBtn" disabled>Підтвердити</button>
+          {% endif %}
+      </div>
+
+      <!-- Модалка -->
+      <div id="confirmModal" class="modal">
+        <div class="modal-content">
+          <p>Ви впевнені, що хочете підтвердити замовлення?</p>
+          <button type="button" id="confirmYes" class="primary submit-btn">Так</button>
+          <button type="button" id="confirmNo">Скасувати</button>
+        </div>
+      </div>
   </form>
 {% endblock %}
 
@@ -93,6 +102,4 @@
 
 {% block js %}
 <script src="{% static 'assets/js/checkout.js' %}"></script>
-
-
 {% endblock %}

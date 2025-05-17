@@ -8,6 +8,12 @@ class Order(models.Model):
         ('cash_pay', 'По передоплаті онлайн'),
         ('cash_online', 'Повна оплата онлайн'),
     ]
+    FEEDBACK_MESSENGER_CHOICES = [
+        ('empty', 'Немає'),
+        ('telegram', 'Telegram'),
+        ('viber', 'Viber'),
+        ('whatsapp', 'WhatsApp'),
+    ]
     STATUS_CHOICES = [
         ('created', 'Створений'),
         ('processing', 'У процесі'),
@@ -19,6 +25,11 @@ class Order(models.Model):
         max_length=20,
         choices=PAYMENT_METHOD_CHOICES,
         verbose_name='Спосіб оплати',
+    )
+    feedback_messengers = models.CharField(
+        max_length=20,
+        choices=FEEDBACK_MESSENGER_CHOICES,
+        verbose_name='Месенджери для звʼязку',
     )
     user = models.ForeignKey(
         User,
@@ -91,7 +102,16 @@ class ShippingAddress(models.Model):
         related_name='shipping_address',
         verbose_name='Замовлення'
     )
-    feedback_messengers = models.JSONField(default=list, blank=True, verbose_name='Месенджери для звʼязку')
+    feedback_messengers = models.CharField(
+        verbose_name='Месенджери для звʼязку',
+        blank=True,
+        help_text='Вибрані месенджери'
+    )
+    payment_method = models.CharField(
+        verbose_name='Спосіб оплати',
+        blank=True,
+        help_text='Вибраний спосіб оплати'
+    )
 
     class Meta:
         verbose_name = 'Адрес доставки'

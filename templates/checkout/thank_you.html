@@ -1,24 +1,45 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/css/thank_you.css'%}" />
+{% endblock %}
 
 {% block content %}
-<h2>Дякую за Ваше замовлення!</h2>
-<p><strong>Зміст замовлення:</strong>
-{% for item in order.items.all %}
-  <li>{{ item.quantity }} х {{ item.item.title }}</li>
-{% endfor %}
-<br>
-<p>На суму <b>{{ order.total_price }}</b> гривень.</p>
-</p>
-<p><strong>Доставимо по адресу:</strong></p>
-<p>
-  {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br>
-  Телефон: {{ order.shipping_address.phone }}<br>
-  Email: {{ order.shipping_address.email }}<br>
-  Місто: {{ order.shipping_address.city }}<br>
-  Відділення: {{ order.shipping_address.office }}
-</p>
+<div class="thank-you-container">
+  <div class="thank-you-header">Дякуємо за Ваше замовлення!</div>
 
-<div>
-  <a href="{% url 'users:user_orders' %}" class="button">Мої замовлення</a>
+  <div class="order-summary">
+    <p><strong>Зміст замовлення:</strong></p>
+    <ul>
+      {% for item in order.items.all %}
+        <li>{{ item.quantity }} × {{ item.item.title }}</li>
+      {% endfor %}
+    </ul>
+    <p><strong>Загальна сума:</strong> <b>{{ order.total_price }} грн</b></p>
+  </div>
+
+  <div class="order-summary">
+    <p><strong>Дані для доставки:</strong></p>
+    <p>
+      {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br>
+      Телефон: {{ order.shipping_address.phone }}<br>
+      Email: {{ order.shipping_address.email }}<br>
+      Місто: {{ order.shipping_address.city }}<br>
+      Відділення: {{ order.shipping_address.office }}<br>
+      Спосіб оплати: {{ order.get_payment_method_display }}<br>
+      Месенджери для зв'язку: {{ order.get_feedback_messengers_display }}
+    </p>
+  </div>
+
+  <div class="contact-info">
+    <h4>Як завершити замовлення?</h4>
+    <p>Ми зв'яжемося з вами найближчим часом для підтвердження замовлення!</p>
+    <p>Перевірте правильність написання Ваших даних для зворотнього зв'язку</p>
+  </div>
+
+  <div class="btn-orders">
+    <a href="{% url 'users:user_orders' %}">Перейти до моїх замовлень</a>
+  </div>
 </div>
 {% endblock %}

@@ -12,24 +12,34 @@ if (messagesList) {
   }
 }
 
-// Скрипт для всплывающего окна с оплатой
-const paymentMethodSelect = document.getElementById('id_payment_method');
-const onlinePaymentInfo = document.getElementById('online-payment-info');
-const overlay = document.getElementById('overlay');
-const closeBtn = document.getElementById('close-btn');
+// Скрипт для модального окна
+document.addEventListener('DOMContentLoaded', function () {
+    const confirmBtn = document.getElementById('confirmBtn');
+    const modal = document.getElementById('confirmModal');
+    const yesBtn = document.getElementById('confirmYes');
+    const noBtn = document.getElementById('confirmNo');
 
-paymentMethodSelect.addEventListener('change', (event) => {
-  if (event.target.value === 'card_online') {
-    onlinePaymentInfo.style.display = 'block';
-    overlay.style.display = 'block';
-  } else {
-    onlinePaymentInfo.style.display = 'none';
-    overlay.style.display = 'none';
-  }
+    if (confirmBtn && modal && yesBtn && noBtn) {
+        confirmBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            modal.classList.add('fade-in');
+            document.body.classList.add('no-scroll'); 
+        });
+
+        yesBtn.addEventListener('click', () => {
+            confirmBtn.closest('form').submit();
+        });
+
+        noBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.classList.remove('no-scroll');  
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    }
 });
-
-closeBtn.addEventListener('click', () => {
-  onlinePaymentInfo.style.display = 'none';
-  overlay.style.display = 'none';
-});
-

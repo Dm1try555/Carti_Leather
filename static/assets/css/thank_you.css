@@ -1,0 +1,56 @@
+.thank-you-container {
+    max-width: 1000px;
+    margin: 0;
+    padding: 30px;
+    background: #fefefe;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    text-align: left;
+}
+
+.thank-you-header {
+font-size: 28px;
+font-weight: bold;
+margin-bottom: 20px;
+color: #2c3e50;
+text-align: center;
+}
+
+.order-summary, .contact-info {
+margin-top: 20px;
+padding: 20px;
+background: #f8f9fa;
+border-radius: 12px;
+border: 1px solid #e0e0e0;
+}
+
+.order-summary li {
+margin-bottom: 5px;
+}
+
+.contact-info a {
+display: inline-block;
+margin-top: 10px;
+color: #007bff;
+font-weight: 500;
+}
+
+.btn-orders {
+margin-top: 30px;
+display: block;
+text-align: center;
+}
+
+.btn-orders a {
+background: #555;
+color: white;
+padding: 12px 30px;
+border-radius: 8px;
+text-decoration: none;
+}
+
+.btn-orders a:hover {
+color: #f2849e;
+transform: translateY(-2px); /* Эффект поднятия */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

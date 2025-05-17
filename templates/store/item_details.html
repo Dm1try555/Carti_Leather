@@ -1,41 +1,61 @@
 {% extends "base.html" %}
-{% block content %}
 {% load static %}
 
-<h2>{{ item.title }}</h2>
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/css/item_details.css'%}" />
+{% endblock %}
 
-<p>Товар належить до категорії:
-    {% for tag in item.tags.all %}
-        <b><a href="{% url 'store:tag_details' tag.slug %}">{{ tag }}</a></b>{% if not forloop.last %},{% endif %}
-    {% endfor %}
-</p>
+{% block content %}
+<div class="container">
+    <h2 class="h2">{{ item.title }}</h2>
 
-<!-- Галерея зображень -->
-<div style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 20px;">
-    {% if item.image %}
-        <a href="{{ item.image.url }}" data-lightbox="item-gallery">
-            <img src="{{ item.image.url }}" alt="Фото" style="width: 220px; height: 220px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
+    <p class="p">Товар належить до категорії:
+        {% for tag in item.tags.all %}
+            <b><a href="{% url 'store:tag_details' tag.slug %}">{{ tag }}</a></b>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    </p>
+
+    <!-- Галерея зображень -->
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 20px;">
+        {% if item.image %}
+            <a href="{{ item.image.url }}" data-lightbox="item-gallery">
+                <img src="{{ item.image.url }}" alt="Фото" style="width: 220px; height: 220px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
+            </a>
+        {% endif %}
+        {% for img in item.images.all %}
+            <a href="{{ img.image.url }}" data-lightbox="item-gallery">
+                <img src="{{ img.image.url }}" alt="Фото" style="width: 220px; height: 220px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Кнопка додавання до кошика -->
+    <div class="add-to-cart">
+        <a href="{% url 'cart:add_to_cart' item.slug %}" class="button small">
+            Додати до кошику
         </a>
-    {% endif %}
-    {% for img in item.images.all %}
-        <a href="{{ img.image.url }}" data-lightbox="item-gallery">
-            <img src="{{ img.image.url }}" alt="Фото" style="width: 220px; height: 220px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
-        </a>
-    {% endfor %}
+    </div>
+
+    <!-- Опис і ціни -->
+    <div class="about-product">
+        <div class="description">
+            {{ item.description | linebreaksbr }}
+        </div>
+
+        <div class="price">
+            {% if item.old_price %}
+                <div class="old-price">
+                    <p>Стара ціна: {{ item.old_price }} гривень</p>
+                </div>
+                <div class="new-price">
+                    <p>Нова ціна: <b>{{ item.price }}</b> гривень</p>
+                </div>
+            {% else %}
+                <div class="new-price">
+                    <p>Ціна: <b>{{ item.price }}</b> гривень</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
-
-<!-- Кнопка додавання до кошика -->
-<a href="{% url 'cart:add_to_cart' item.slug %}" class="button small" style="margin-bottom: 20px; display:inline-block;">
-    Додати до кошику
-</a>
-
-<!-- Опис і ціни -->
-<p>{{ item.description | linebreaksbr }}</p>
-{% if item.old_price %}
-    <p>Стара ціна: <s>{{ item.old_price }}</s> гривень</p>
-    <p>Нова ціна: <b>{{ item.price }}</b> гривень</p>
-{% else %}
-    <p>Ціна: <b>{{ item.price }}</b> гривень</p>
-{% endif %}
-
 {% endblock %}

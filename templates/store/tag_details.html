@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/css/tag_details.css'%}" />
+{% endblock %}
+
 {% block content %}
-<h2>{{ tag.name }}</h2>
+
+<h2 class="h2">{{ tag.name }}</h2>
 <p>Товарів у категорії: <b>{{ tag.items.count }}</b></p>
 <p><a href="{% url 'store:tag_list' %}">← Усі категорії</a></p>
 <hr>
@@ -33,57 +38,4 @@
     </div>
     {% endfor %}
 </div>
-
-<style>
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 2em;
-    margin-top: 2em;
-}
-
-.product-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 1em;
-    text-align: center;
-    background-color: #fff;
-    transition: box-shadow 0.3s;
-}
-
-.product-card:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.product-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.product-title {
-    margin: 0.5em 0;
-    font-size: 1.2em;
-}
-
-.product-description {
-    font-size: 0.95em;
-    color: #555;
-    height: 3em;
-    overflow: hidden;
-}
-
-.product-price {
-    margin: 0.5em 0;
-}
-
-.old-price {
-    color: #888;
-    margin-right: 0.5em;
-}
-
-.new-price {
-    color: #d00;
-}
-</style>
 {% endblock %}
